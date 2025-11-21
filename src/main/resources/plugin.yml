@@ -1,0 +1,11 @@
+name: ServerStatus
+version: '1.0-SNAPSHOT'
+main: top.peacefuly.serverStatus.ServerStatus
+api-version: '1.21'
+commands:
+  ssreload:
+    description: Reload ServerStatus config
+    usage: /ssreload
+permissions:
+  serverstatus.reload:
+    default: op
