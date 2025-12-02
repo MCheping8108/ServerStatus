@@ -84,5 +84,10 @@
             <artifactId>jetty-servlet</artifactId>
             <version>11.0.24</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20250517</version>
+        </dependency>
     </dependencies>
 </project>

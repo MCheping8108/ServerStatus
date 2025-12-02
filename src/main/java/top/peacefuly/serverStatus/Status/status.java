@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.lang.management.ManagementFactory;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import org.json.JSONObject;
 import org.bukkit.event.Listener;
 //import java.lang.management.OperatingSystemMXBean;
 
@@ -58,7 +60,6 @@ public class status implements Listener {
         // 读取客户端请求
         BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         String requestLine = reader.readLine();
-
         // 监听服务器占用资源
         OperatingSystemMXBean osBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
         double cpuUsage = osBean.getCpuLoad();
@@ -66,6 +67,9 @@ public class status implements Listener {
         int playerCount = plugin.getServer().getOnlinePlayers().size();
         var playerMax = plugin.getServer().getMaxPlayers();
         var icon = plugin.getServer().getServerIcon();
+        var version = plugin.getServer().getVersion();
+        var onlineMode = plugin.getServer().getOnlineMode();
+        var motd = plugin.getServer().getMotd();
 
         // 书写规范
 //        var cpuMessage = String.format("%.2f", cpuUsage * 100) + "%";
@@ -78,13 +82,24 @@ public class status implements Listener {
             // 返回数据
 
             PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
-//            这玩意直接文字形式显示出来了，干脆直接注释，偷个懒
-//            writer.println("Access-Control-Allow-Origin: *");
+            JSONObject json = new JSONObject();
             writer.println("HTTP/1.1 200 OK");
 //            打印出json数据
             writer.println("Content-Type: application/json");
             writer.println();
-            writer.println("{\"cpuUsage\": " + cpuUsage + ", \"memUsage\": " + memUsage + ", \"playerCount\": " + playerCount + ", \"playerMax\": " + playerMax + "}");
+            json.put("cpuUsage", cpuUsage);
+            json.put("memUsage", memUsage);
+            json.put("playerCount", playerCount);
+            json.put("playerMax", playerMax);
+            json.put("version", version);
+            json.put("onlineMode", onlineMode);
+            json.put("motd", motd);
+            if (icon != null) {
+                json.put("icon", icon.toString());
+            } else {
+                json.put("icon", JSONObject.NULL);
+            }
+            writer.println(json.toString(4));
             writer.close();
         }
     }
