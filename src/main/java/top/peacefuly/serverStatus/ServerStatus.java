@@ -1,7 +1,5 @@
 package top.peacefuly.serverStatus;
 
-import com.sun.management.OperatingSystemMXBean;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,8 +17,6 @@ public final class ServerStatus extends JavaPlugin implements Listener {
         statusService = new status(this);
         getServer().getPluginManager().registerEvents(statusService, this);
         statusService.startWebServer();
-//        startWebServer();
-//        ListenServerStatus();
         saveDefaultConfig();
         this.getCommand("ssreload").setExecutor(new commands(this));
     }
@@ -28,7 +24,7 @@ public final class ServerStatus extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        getLogger().info("ServerStatus has been disabled!");
+        getLogger().info(ChatColor.RED + "ServerStatus has been disabled!");
         statusService.stopWebServer();
     }
 }
