@@ -12,3 +12,6 @@
 
 如果你的服务器在运行，你可以在***config.yml***修改端口号并且在控制台输入 `/ssreload` 
 
+## 其他
+去尝试一下[ServerStatus-Web](https://github.com/MCheping8108/ServerStatus-web)
+

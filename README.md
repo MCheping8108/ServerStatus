@@ -12,3 +12,6 @@ Too Easy! Install this plugin and run server, use your browser open your ServerS
 
 if your server has running, you can change the port in the ***config.yml*** and in console typing `/ssreload`
 
+## Other
+
+Try [ServerStatus-Web](https://github.com/MCheping8108/ServerStatus-web)
